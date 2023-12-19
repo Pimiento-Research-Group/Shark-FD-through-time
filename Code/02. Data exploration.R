@@ -33,41 +33,6 @@ Fossil_data <- data %>%
   filter(Species!="sp.") %>% 
   count(Taxon_corrected)
 
-# Import FINS data
-XD <- read_xlsx("C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Database/species_images.xlsx", 2)
-
-# Remove invalid and Cretaceous species
-XT <- XD %>% 
-  filter(Notes == "NA")
-
-# Representation
-XT %>% 
-  summarise(Genera = n_distinct(Genus))
-## 163/172 = 94.7% Cenozoic shark genus representation
-
-XT %>% 
-  summarise(XT_Taxa = n_distinct(Species))
-## 454/600 = 75.7% Cenozoic shark species representation
-
-level <- c(rep("Genus", 2), rep("Species", 2))
-sets <- c("Data","FINS","Data","FINS")
-sets <- ordered(sets, levels=c("FINS","Data"))
-value <- c(158,(172-163),457,(600-454))
-df_XT <- data.frame(level,sets,value)
-
-ggplot(df_XT, aes(fill=sets, y=value, x=level)) + 
-  geom_bar(position="fill", stat="identity") +
-  labs(x = NULL, y = "%")+
-  ggtitle("Cenozoic shark fossil representation in FINS")+
-  theme_minimal() +
-  theme_bw() +
-  scale_fill_manual(values=c("#F8766D","#00B6ED")) +
-  theme(axis.text = element_text(size= 10, color= "black"),
-        axis.title= element_text(size= 20), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(plot.title = element_text(hjust = 0.5))
-
 # Geographic occurrences of shark teeth - produces Figure S1
 world <- map_data("world")
 gmap <- ggplot() +
