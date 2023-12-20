@@ -22,7 +22,7 @@ library(doParallel)
 library(deeptime)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Occurrence matrix
 # Form FTU unique combinations, with epoch included
@@ -173,14 +173,6 @@ baskets.epoch <- filtered_baskets.range %>%
   mutate(Recent = replace(Recent,Recent=="1",Taxon_corrected))
 
 baskets.epoch[baskets.epoch == 0]<-NA
-
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
 
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU <- data %>% 
@@ -483,11 +475,11 @@ res_Taxonvar_resamp_df$sp_richn<-NULL
 # Format res for FD metrics
 resamp_FDmetrics_taxonvar<- res_Taxonvar_resamp_df %>% 
   select(Epoch:fspe)
-save(resamp_FDmetrics_taxonvar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_resampling_metrics.RData")
+save(resamp_FDmetrics_taxonvar, file = "~/Taxon_variation_resampling_metrics.RData")
 
 # Melt data & save
 FDmetrics_resamp_long_taxonvar<- melt(resamp_FDmetrics_taxonvar, id.vars= "Epoch")
-save(FDmetrics_resamp_long_taxonvar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_resampling_long.RData")
+save(FDmetrics_resamp_long_taxonvar, file = "~/Taxon_variation_resampling_long.RData")
 
 # Plot resampling in violin plots
 TR_resampling_Taxonvar <- FDmetrics_resamp_long_taxonvar %>% 
@@ -508,9 +500,9 @@ FSpemetrics_resampling_Taxonvar <- FDmetrics_resamp_long_taxonvar %>%
   filter(variable == "fspe")
 
 # Load empirical results saved from code S4
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_long_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Taxon_metrics.RData")
+load(file = "~/Taxon_variation_metrics.RData")
+load(file = "~/Taxon_variation_long_metrics.RData")
+load(file = "~/Median_Taxon_metrics.RData")
 
 # Plot empirical and resampling results
 epochs_custom <- data.frame(
@@ -548,9 +540,8 @@ TR_resampling_variation <- ggplot(data = TR_resampling_Taxonvar, aes(x = Epoch, 
   geom_point(x = 5,y = 147, pch = 21, size = 5, colour = "black", fill = "#FFFF99", stroke = 1)+
   geom_point(x = 6,y = 134, pch = 21, size = 5, colour = "black", fill = "#FFF2AE", stroke = 1)+
   geom_point(x = 7,y = 115, pch = 21, size = 5, colour = "black", fill = "#FEF2E0", stroke = 1)
-save(TR_resampling_variation, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon richness_resampling.RData")
 
-# Plot functional diversity metrics - empirical and resampling; for Figure S7
+# Plot functional diversity metrics - empirical and resampling
 ## Functional entities
 FDmetrics_FE <- FDmetrics_long_TaxonVar %>% 
   filter(variable == "nb_fe")
@@ -701,7 +692,7 @@ FSpe_resampling_variation <- ggplot(data=FSpemetrics_resampling_Taxonvar, aes(x=
     size = 3
   )
 
-# Plot all results in a single grid - produces Figure S7
+# Plot all results in a single grid - produces Figure S5
 plot_grid(FE_resampling_variation,
           FRed_resampling_variation,
           FOred_resampling_variation,
@@ -710,38 +701,6 @@ plot_grid(FE_resampling_variation,
           FSpe_resampling_variation,
           labels= c("(a)","(b)","(c)","(d)","(e)","(f)"), 
           label_size = 12,align = "hv", label_fontface = "bold",  nrow=6)
-
-# Calculate slopes in resampling data and save for statistical analyses
-## Separate by epoch
-Resampled_Pal<- resamp_FDmetrics_taxonvar[grep("Palaeocene", resamp_FDmetrics_taxonvar$Epoch), (2:9)]
-Resampled_Eo<- resamp_FDmetrics_taxonvar[grep("Eocene", resamp_FDmetrics_taxonvar$Epoch), (2:9)]
-Resampled_Oli<- resamp_FDmetrics_taxonvar[grep("Oligocene", resamp_FDmetrics_taxonvar$Epoch), (2:9)]
-Resampled_Mio<- resamp_FDmetrics_taxonvar[grep("Miocene", resamp_FDmetrics_taxonvar$Epoch), (2:9)]
-Resampled_Plio<- resamp_FDmetrics_taxonvar[grep("Pliocene", resamp_FDmetrics_taxonvar$Epoch), (2:9)]
-Resampled_Ple<- resamp_FDmetrics_taxonvar[grep("Pleistocene", resamp_FDmetrics_taxonvar$Epoch), (2:9)]
-Resampled_Rec<- resamp_FDmetrics_taxonvar[grep("Recent", resamp_FDmetrics_taxonvar$Epoch), (2:9)]
-
-## Calculate & save resampling slopes
-slopes_fun<- function(data1, data2){
-  output<- matrix(data= NA, nrow= dim(data1)[1], ncol= dim(data1)[2])
-  for (k in 1:8) {
-    output[,k]<- data2[,k]- data1[,k]
-  }
-  return(output)
-}
-
-Resamp_Pal_Eo_Slopes<- slopes_fun(Resampled_Pal, Resampled_Eo)
-save(Resamp_Pal_Eo_Slopes, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Pal-Eo resampled slope.RData")
-Resamp_Eo_Oli_Slopes<- slopes_fun(Resampled_Eo, Resampled_Oli)
-save(Resamp_Eo_Oli_Slopes, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Eo-Oli resampled slope.RData")
-Resamp_Oli_Mio_Slopes<- slopes_fun(Resampled_Oli, Resampled_Mio)
-save(Resamp_Oli_Mio_Slopes, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Oli-Mio resampled slope.RData")
-Resamp_Mio_Plio_Slopes<- slopes_fun(Resampled_Mio, Resampled_Plio)
-save(Resamp_Mio_Plio_Slopes, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mio-Plio resampled slope.RData")
-Resamp_Plio_Ple_Slopes<- slopes_fun(Resampled_Plio, Resampled_Ple)
-save(Resamp_Plio_Ple_Slopes, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Plio-Ple resampled slope.RData")
-Resamp_Ple_Rec_Slopes<- slopes_fun(Resampled_Ple, Resampled_Rec)
-save(Resamp_Ple_Rec_Slopes, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Ple-Rec resampled slope.RData")
 
 # FRic-species richness - produced based on functional space produced in Code S3
 N=round(seq(10, length(unique(data$Taxon_corrected)), length.out=50))
@@ -752,7 +711,7 @@ sims.dat.list <- split(sims.dat, seq(nrow(sims.dat)))
 species.names <- filtered_baskets.range %>% distinct(Taxon_corrected) %>% as.data.frame()
 
 # Load species-trait matrix from Code S3
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code//Data/Average species-trait matrix.RData")
+load(file = "~/Species-trait matrix.RData")
 # Make species-trait matrix
 sharks_traits <- Av_sharks_filtered %>%
   remove_rownames %>% 
@@ -907,12 +866,12 @@ row_odd
 
 resampled_cor <- resamp_df[row_odd == 0, ]            # Subset even rows
 
-save(resampled_cor,file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code//Data/Species richness sequence.RData")
+save(resampled_cor,file = "~/Species richness sequence.RData")
 
 # Correlation test to FRic
 cor.test(resampled_cor$nb_sp,resampled_cor$fric)      # Strong positive association (rho = 0.83; P < 2.2e-16)
 
-# Get mean values to plot lines - FRic as key focus with CIs (can we get CI this way?)
+# Get mean values to plot lines - FRic as key focus with CIs
 resamp_means <- resampled_cor %>%
   group_by(nb_sp) %>%
   summarise(
