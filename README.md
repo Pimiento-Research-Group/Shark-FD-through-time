@@ -77,4 +77,4 @@ A total of 13 R scripts were produced containing all analyses. The scripts are a
 All code and data are placed in the following folders:
 
 - **Code**: containing all 13 R scripts
-- **Data**: containing all Rdata and xlsx outputs from the code, which can subsequently be used in replications of our analyses
+- **Data**: containing all Rdata and xlsx outputs from the code. Rdata files can be loaded directly into replications of our analyses using the load() command
