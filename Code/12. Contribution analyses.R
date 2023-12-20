@@ -21,7 +21,7 @@ library(doParallel)
 library(grid)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Run functional diversity inputs 
 # Occurrence matrix
@@ -174,14 +174,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -306,7 +298,7 @@ res_FUSE_df <- res_FUSE_list %>%
 # House-keeping
 FUSE_spp <- res_FUSE_df %>% 
   rownames_to_column(var = "Iteration")
-save(FUSE_spp, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/FUn_Fsp metrics.RData")
+save(FUSE_spp, file = "~/FUn_Fsp metrics.RData")
 
 # Set up dataset of mean metric values, filtered taxa, status, & taxonomic information 
 FUSE_sum <- FUSE_spp %>% 
