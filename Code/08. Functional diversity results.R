@@ -15,20 +15,20 @@ library(Hmisc)
 library(boot)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Load empirical and null model results
 ## Empirical analyses
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_long_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Taxon_metrics.RData")
+load(file = "~/Taxon_variation_metrics.RData")
+load(file = "~/Taxon_variation_long_metrics.RData")
+load(file = "~/Median_Taxon_metrics.RData")
 ## Null model
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_null.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_null_long.RData")
+load(file = "~/Taxon_variation_null.RData")
+load(file = "~/Taxon_variation_null_long.RData")
 ## Resampled taxonomic richness plot
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon richness_resampling.RData")
+load(file = "~/Taxon richness_resampling.RData")
 
-## Violin plots - Null model shading set up
+## Null model set up for violin plots
 FEmetrics_null_Taxonvar <- FDmetrics_null_long_taxonvar %>% 
   filter(variable == "nb_fe")
 FRedmetrics_null_Taxonvar <- FDmetrics_null_long_taxonvar %>% 
@@ -263,7 +263,7 @@ for(e in 1:8) {
 }
 
 
-#write function to calculate slopes for null model values
+#write function to calculate differences between empirical and null model values
 slopes_fun<- function(data1, data2){
   output<- matrix(data= NA, nrow= dim(data1)[1], ncol= dim(data1)[2])
   for (k in 1:8) {
@@ -306,16 +306,16 @@ for (i in 1:8){
 emp.null
 
 # Extract results as excel worksheet - produces Tables 2 and S4
-save(emp.null, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Empirical_null_FD metrics.Rdata")
-write_xlsx(emp.null, "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Empirical_null_FD differences.xlsx")
+save(emp.null, file = "~/Empirical_null_FD metrics.Rdata")
+write_xlsx(emp.null, "~/Empirical_null_FD differences.xlsx")
 
 ##################################################################################
 ## Calculate CI and significance of empirical taxonomic richness vs resampled taxonomic richness
 # Load long empirical data
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_long_metrics.RData")
+load(file = "~/Taxon_variation_long_metrics.RData")
 
 # Load long resampled data
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_resampling_long.RData")
+load(file = "~/Taxon_variation_resampling_long.RData")
 
 ## Filter by epochs
 # Empirical
