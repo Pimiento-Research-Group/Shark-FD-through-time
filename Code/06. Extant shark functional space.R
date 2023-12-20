@@ -21,7 +21,7 @@ library(parallel)
 library(doParallel)
 
 # Load tooth data & isolate extant shark species
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 extant_sharks <- data %>%
   select(Taxon_corrected,Current_status,Order,Family,Genus,Species) %>% 
@@ -32,7 +32,7 @@ extant_sharks <- extant_sharks %>%
   distinct(Taxon_corrected,Current_status,Order,Family,Genus,Species)
 extant_sharks <- extant_sharks[order(extant_sharks$Taxon_corrected),]
 
-# Count Orders, families, genera - how does this compare to total of known living sharks
+# Count Orders, families, genera 
 n_distinct(extant_sharks$Order)
 ## 9 - 100% of 9 (Ebert et al. 2021)
 n_distinct(extant_sharks$Family)
@@ -44,10 +44,8 @@ extant_species <- extant_sharks %>%
   ungroup() %>% 
   filter(Species!="sp.")
 
-## Consider a re-run with the removed species-level and see what you find there? Below analysis is all Recent species
-
 # Load all living species & traits
-living_sharks <- read_xlsx("C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Paper/Supplementary data/Data S2.xlsx")
+living_sharks <- read_xlsx("~/Data S2.xlsx")
 
 living_sharks$Body_size <- ordered(living_sharks$Body_size, 
                                    levels=c("Small","Medium","Large","Giant"))
@@ -259,7 +257,7 @@ plot_FSpe_rank_lollipop <- ggplot(FUSE_fspe_rank, aes(x = Species, y = FSp_std, 
         axis.title = element_text(size = 12), panel.background = element_rect(fill = "white")) +
   theme(panel.grid = element_blank())
 
-# Plot everything - Produces Figure S4
+# Plot everything - Produces Figure S8
 plot_grid(
   data_space,
   plot_FSpe_rank_lollipop,
