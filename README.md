@@ -59,7 +59,7 @@ A total of 13 R scripts were produced containing all analyses. The scripts are a
 - It produces Figure S8
 07. **Randomisation results**: This code produces the random simulations on shark functional diversity data; one where time bin data are resampled based on the smallest sample size, and one simulating randomised taxonomic losses to assess the relationship between taxonomic richness and functional richness
 - It produces Figure S5 and S6
-- It further produces 3 Rdata files: the results of the resampling procedure in wide and long format - Taxon_variation_resampling_metrics.RData, Taxon_variation_resampling_long.RData - and the taxonomic loss sequence - Species richness sequence.RData
+- It further produces 4 Rdata files: the results of the resampling procedure in wide and long format - Taxon_variation_resampling_metrics.RData, Taxon_variation_resampling_long.RData - and the taxonomic loss sequence - Species richness sequence.RData - as well as a plot of taxonomic richness under resampling used in Figure 2 - Taxon richness_resampling.RData
 08. **Functional diversity results**: This code plots shark functional diversity through time, assesses if this deviates from null expectations via Z-scores, and examines if empirical changes in taxonomic richness are significantly different from when this data are resampled
 - It produces Figure 2, Table 2, S4 and S5 
 - It further produces an Rdata and xlsx file used to produce Table 2 - Empirical_null_FD_metrics.Rdata and Empirical_null_FD differences.xlsx
