@@ -21,7 +21,7 @@ library(doParallel)
 library(writexl)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 ## Form dataframe of traits and occurrences; to be split into two input matrices in the loop
 # Occurrence matrix
@@ -174,14 +174,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -307,14 +299,14 @@ res_df_TaxonVar$sp_richn<-NULL
 # Format dataframe to be loaded for comparison plots
 Res_FDmetrics_TaxonVar<- res_df_TaxonVar %>% 
   select(Epoch:fspe)
-save(Res_FDmetrics_TaxonVar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_metrics.RData")
+save(Res_FDmetrics_TaxonVar, file = "~/Taxon_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_TaxonVar<- melt(Res_FDmetrics_TaxonVar, id.vars= "Epoch")
-save(FDmetrics_long_TaxonVar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_long_metrics.RData")
+save(FDmetrics_long_TaxonVar, file = "~/Taxon_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
-## Spp_richness + Median and SD values produce Table 1
+## Median and SD values produce Table 1
 Taxon_var <- Res_FDmetrics_TaxonVar %>% 
   group_by(Epoch) %>%
   summarise(Sp_mean = mean(nb_sp),
@@ -344,10 +336,9 @@ Taxon_var <- Res_FDmetrics_TaxonVar %>%
 
 Taxon_var$Epoch <- ordered(Taxon_var$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
                                                      "Pliocene","Pleistocene","Recent"))
-Taxon_var$Spp <- Spp_richness
 
 # Save iteration data
-save(Taxon_var, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Taxon_metrics.RData")
+save(Taxon_var, file = "~/Median_Taxon_metrics.RData")
 
 # Isolate individual functional diversity metrics
 FDmetrics_FE <- FDmetrics_long_TaxonVar %>% 
@@ -366,7 +357,7 @@ FDmetrics_Fspe <- FDmetrics_long_TaxonVar %>%
   filter(variable == "fspe")
 
 # Test data for normal distribution - all show non-normal distribution (P < 0.05)
-## Code below focuses on FE, FRed & FRic; all metrics per epoch due to high sample size for shapiro wilk test
+## Code below focuses on FE, FRed & FRic but can be applied to all metrics; all metrics are assessed per epoch due to high sample size for shapiro wilk test
 FE_Taxonvar_pal <- FDmetrics_FE %>% 
   filter(Epoch == "Palaeocene")
 shapiro.test(FE_Taxonvar_pal$value)
@@ -464,7 +455,7 @@ FDmetrics_taxonvar_Plio<- Res_FDmetrics_TaxonVar[grep("Pliocene", Res_FDmetrics_
 FDmetrics_taxonvar_Ple<- Res_FDmetrics_TaxonVar[grep("Pleistocene", Res_FDmetrics_TaxonVar$Epoch), (2:9)]
 FDmetrics_taxonvar_Rec<- Res_FDmetrics_TaxonVar[grep("Recent", Res_FDmetrics_TaxonVar$Epoch), (2:9)]
 
-# write function to calculate slopes for null model values
+# write "slopes" function (Hedberg et al. 2021) to calculate changes 
 slopes_fun<- function(data1, data2){
   output<- matrix(data= NA, nrow= dim(data1)[1], ncol= dim(data1)[2])
   for (k in 1:8) {
@@ -508,4 +499,4 @@ for (i in 1:8){
   slopes.emp[6,i+8]<- (slopes.emp[6,i]- median(N_Ple_Rec_Slopes[,i],  na.rm = TRUE))/sd(N_Ple_Rec_Slopes[,i],  na.rm = TRUE)}
 
 slopes.emp
-write_xlsx(slopes.emp, "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Empirical_slopes.xlsx")
+write_xlsx(slopes.emp, "~/Proportional_changes.xlsx")
