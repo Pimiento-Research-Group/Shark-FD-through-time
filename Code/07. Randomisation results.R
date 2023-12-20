@@ -540,6 +540,7 @@ TR_resampling_variation <- ggplot(data = TR_resampling_Taxonvar, aes(x = Epoch, 
   geom_point(x = 5,y = 147, pch = 21, size = 5, colour = "black", fill = "#FFFF99", stroke = 1)+
   geom_point(x = 6,y = 134, pch = 21, size = 5, colour = "black", fill = "#FFF2AE", stroke = 1)+
   geom_point(x = 7,y = 115, pch = 21, size = 5, colour = "black", fill = "#FEF2E0", stroke = 1)
+save(TR_resampling_variation, file = "~/Taxon richness_resampling.RData")
 
 # Plot functional diversity metrics - empirical and resampling
 ## Functional entities
