@@ -17,7 +17,7 @@ library(ggsci)
 library(data.table)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Construct per-epoch functional space and highlight highest FOri & FSpe contributors
 # Occurrence matrix
@@ -158,7 +158,7 @@ getmode <- function(v) {
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
 
-# Calculate average CH & mode CE, LC, XO, LO per species & genus
+# Species-trait
 Av_data <- data %>%
   group_by(Taxon_corrected) %>% 
   reframe(CH = mean(CH_mm),
@@ -387,7 +387,7 @@ GE <- filtered_baskets.range %>%
 GE <- GE[order(GE$Taxon_corrected),]
 GE$Current_status <- as.numeric(GE$Current_status)
 
-load("C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/FUn_Fsp metrics.RData")
+load("~/FUn_Fsp metrics.RData")
 
 # Form dataset with mean metrics, filtered taxa, status, taxonomic & epoch information
 FUSE_sum <- FUSE_spp %>% 
