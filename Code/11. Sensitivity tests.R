@@ -21,10 +21,10 @@ library(doParallel)
 library(deeptime)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Load empirical analyses
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Taxon_metrics.RData")
+load(file="~/Median_Taxon_metrics.RData")
 
 # Analyses without CH
 # Occurrence matrix
@@ -177,14 +177,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU_CH <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -311,11 +303,11 @@ res_df_CH$sp_richn<-NULL
 # Format res for FD metrics
 Res_FDmetrics_CH<- res_df_CH %>% 
   select(Epoch:fspe)
-save(Res_FDmetrics_CH, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CH_variation_metrics.RData")
+save(Res_FDmetrics_CH, file = "~/CH_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_CH<- melt(Res_FDmetrics_CH, id.vars= "Epoch")
-save(FDmetrics_long_CH, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CH_variation_long_metrics.RData")
+save(FDmetrics_long_CH, file = "~/CH_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
 Taxon_CH <- Res_FDmetrics_CH %>% 
@@ -347,10 +339,9 @@ Taxon_CH <- Res_FDmetrics_CH %>%
 
 Taxon_CH$Epoch <- ordered(Taxon_CH$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
                                                    "Pliocene","Pleistocene","Recent"))
-Taxon_CH$Spp <- Spp_richness
 
 # Save iteration data
-save(Taxon_CH, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CH_Taxon_metrics.RData")
+save(Taxon_CH, file = "~/CH_Taxon_metrics.RData")
 
 
 # Analyses without CW
@@ -503,14 +494,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU_CW <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -636,11 +619,11 @@ res_df_CW$sp_richn<-NULL
 # Format res for FD metrics
 Res_FDmetrics_CW<- res_df_CW %>% 
   select(Epoch:fspe)
-save(Res_FDmetrics_CW, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CW_variation_metrics.RData")
+save(Res_FDmetrics_CW, file = "~/CW_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_CW<- melt(Res_FDmetrics_CW, id.vars= "Epoch")
-save(FDmetrics_long_CW, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CW_variation_long_metrics.RData")
+save(FDmetrics_long_CW, file = "~/CW_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
 Taxon_CW <- Res_FDmetrics_CW %>% 
@@ -672,10 +655,9 @@ Taxon_CW <- Res_FDmetrics_CW %>%
 
 Taxon_CW$Epoch <- ordered(Taxon_CW$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
                                                    "Pliocene","Pleistocene","Recent"))
-Taxon_CW$Spp <- Spp_richness
 
 # Save iteration data
-save(Taxon_CW, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CW_Taxon_metrics.RData")
+save(Taxon_CW, file = "~/CW_Taxon_metrics.RData")
 
 # Analyses without CE
 # Form FTU unique combinations, with epoch included
@@ -827,14 +809,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU_CE <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -959,11 +933,11 @@ res_df_CE$sp_richn<-NULL
 # Format res for FD metrics
 Res_FDmetrics_CE<- res_df_CE %>% 
   select(Epoch:fspe)
-save(Res_FDmetrics_CE, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CE_variation_metrics.RData")
+save(Res_FDmetrics_CE, file = "~/CE_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_CE<- melt(Res_FDmetrics_CE, id.vars= "Epoch")
-save(FDmetrics_long_CE, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CE_variation_long_metrics.RData")
+save(FDmetrics_long_CE, file = "~/CE_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
 Taxon_CE <- Res_FDmetrics_CE %>% 
@@ -995,10 +969,9 @@ Taxon_CE <- Res_FDmetrics_CE %>%
 
 Taxon_CE$Epoch <- ordered(Taxon_CW$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
                                                    "Pliocene","Pleistocene","Recent"))
-Taxon_CE$Spp <- Spp_richness
 
 # Save iteration data
-save(Taxon_CE, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/CE_Taxon_metrics.RData")
+save(Taxon_CE, file = "~/CE_Taxon_metrics.RData")
 
 # Analyses without LC
 # Form FTU unique combinations, with epoch included
@@ -1150,14 +1123,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU_LC <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -1282,11 +1247,11 @@ res_df_LC$sp_richn<-NULL
 # Format res for FD metrics
 Res_FDmetrics_LC<- res_df_LC %>% 
   select(Epoch:fspe)
-save(Res_FDmetrics_LC, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/LC_variation_metrics.RData")
+save(Res_FDmetrics_LC, file = "~/LC_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_LC<- melt(Res_FDmetrics_LC, id.vars= "Epoch")
-save(FDmetrics_long_LC, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/LC_variation_long_metrics.RData")
+save(FDmetrics_long_LC, file = "~/LC_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
 Taxon_LC <- Res_FDmetrics_LC %>% 
@@ -1318,10 +1283,9 @@ Taxon_LC <- Res_FDmetrics_LC %>%
 
 Taxon_LC$Epoch <- ordered(Taxon_CW$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
                                                    "Pliocene","Pleistocene","Recent"))
-Taxon_LC$Spp <- Spp_richness
 
 # Save iteration data
-save(Taxon_LC, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/LC_Taxon_metrics.RData")
+save(Taxon_LC, file = "~/LC_Taxon_metrics.RData")
 
 # Analyses without XO
 # Form FTU unique combinations, with epoch included
@@ -1473,14 +1437,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU_XO <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -1606,11 +1562,11 @@ res_df_XO$sp_richn<-NULL
 # Format res for FD metrics
 Res_FDmetrics_XO<- res_df_XO %>% 
   select(Epoch:fspe)
-save(Res_FDmetrics_XO, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/XO_variation_metrics.RData")
+save(Res_FDmetrics_XO, file = "~/XO_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_XO<- melt(Res_FDmetrics_XO, id.vars= "Epoch")
-save(FDmetrics_long_XO, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/XO_variation_long_metrics.RData")
+save(FDmetrics_long_XO, file = "~/XO_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
 Taxon_XO <- Res_FDmetrics_XO %>% 
@@ -1642,10 +1598,9 @@ Taxon_XO <- Res_FDmetrics_XO %>%
 
 Taxon_XO$Epoch <- ordered(Taxon_CW$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
                                                    "Pliocene","Pleistocene","Recent"))
-Taxon_XO$Spp <- Spp_richness
 
 # Save iteration data
-save(Taxon_XO, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/XO_Taxon_metrics.RData")
+save(Taxon_XO, file = "~/XO_Taxon_metrics.RData")
 
 # Analyses without LO
 # Form FTU unique combinations, with epoch included
@@ -1797,14 +1752,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU_LO <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -1930,11 +1877,11 @@ res_df_LO$sp_richn<-NULL
 # Format res for FD metrics
 Res_FDmetrics_LO<- res_df_LO %>% 
   select(Epoch:fspe)
-save(Res_FDmetrics_LO, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/LO_variation_metrics.RData")
+save(Res_FDmetrics_LO, file = "~/LO_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_LO<- melt(Res_FDmetrics_LO, id.vars= "Epoch")
-save(FDmetrics_long_LO, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/LO_variation_long_metrics.RData")
+save(FDmetrics_long_LO, file = "~/LO_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
 Taxon_LO <- Res_FDmetrics_LO %>% 
@@ -1966,12 +1913,9 @@ Taxon_LO <- Res_FDmetrics_LO %>%
 
 Taxon_LO$Epoch <- ordered(Taxon_CW$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
                                                    "Pliocene","Pleistocene","Recent"))
-Taxon_LO$Spp <- Spp_richness
 
 # Save iteration data
-save(Taxon_LO, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Sensitivity tests/LO_Taxon_metrics.RData")
-
-
+save(Taxon_LO, file = "~/LO_Taxon_metrics.RData")
 
 ##################################################################################
 # Plots
