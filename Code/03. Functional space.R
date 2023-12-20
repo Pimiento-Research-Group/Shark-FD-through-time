@@ -20,7 +20,7 @@ library(grid)
 library(gridExtra)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Functional spaces per epoch
 ## Occurrence matrix - need to group by Taxa by epoch so we can mark their occurrences through time 
@@ -143,8 +143,8 @@ selected_taxa <- baskets.range %>%
   ) %>%
   select(Taxon_corrected)
 
-# Save range for use in FUSE-based analyses (Code S10)
-save(selected_taxa,file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Filtered taxa.RData")
+# Save excluded taxa
+save(selected_taxa,file = "~/Filtered taxa.RData")
 
 # Filter taxa that are NOT present in "selected_taxa" from sample
 filtered_baskets.range <- baskets.range %>%
@@ -194,7 +194,7 @@ Av_sharks_filtered <- Av_sharks %>%
   anti_join(selected_taxa, by = "Taxon_corrected")
 
 # Save species-trait matrix for use in randomisation simulations (Code S6)
-save(Av_sharks_filtered,file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Average species-trait matrix.RData")
+save(Av_sharks_filtered,file = "~/Species-trait matrix.RData")
 
 
 # Make species-trait matrix
@@ -617,7 +617,6 @@ Rec_contributors12 <- plots_Rec$fric$PC1_PC2 +
   coord_fixed(ratio = 1, xlim = x_limits_PC1, ylim = y_limits_PC12)
 
 # Functional space extinct vs extant sharks - Figure 1i
-# Calculate average CH, CW & mode CE, LC, XO, LO per species & genus
 Av_data <- data %>%
   group_by(Taxon_corrected,Current_status) %>% 
   reframe(CH = mean(CH_mm),
@@ -799,7 +798,6 @@ Spaces <- plot_grid(Pal_contributors12,Eo_contributors12,Oli_contributors12,Mio_
                     Plio_contributors12,Ple_contributors12,Rec_contributors12,whole_space_a,
                     labels = c("(b)","(c)","(d)","(e)","(f)","(g)","(h)","(i)"), 
                     label_size = 12,align = "hv", label_fontface = "bold", hjust = -0.15,  nrow=3)
-save(Spaces,file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Functional space PC1-3.RData")
 
 # Supplement PC1-PC3 spaces (See Code S13 for FOri/FSpe values & coordinates) - produces Figure S4
 ## PCoA1_PCoA3
