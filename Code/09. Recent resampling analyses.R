@@ -23,7 +23,7 @@ library(grid)
 library(gridExtra)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Functional spaces per epoch - do not use "selected taxa" so as to maintain *all* Recent taxa
 ## Occurrence matrix - need to group by Taxa by epoch so we can mark their occurrences through time 
@@ -153,8 +153,7 @@ getmode <- function(v) {
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
 
-# Calculate average CH, CW & mode CE, LC, XO, LO per species & genus
-## Used to form functional space due to being most common tooth morphology per species; see Code S4 for iteration-based analyses
+# Form species-trait matrix
 Av_data <- data %>%
   group_by(Taxon_corrected) %>% 
   reframe(CH = mean(CH_mm),
@@ -717,14 +716,6 @@ baskets.epoch <- baskets.range.taxon %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -845,192 +836,12 @@ res_df_TaxonVar$sp_richn<-NULL
 
 # Format dataframe to be loaded for comparison plots
 FullRecent_TaxonVar<- res_df_TaxonVar %>% 
-  select(Epoch:fspe) # remember to save as something
-save(FullRecent_TaxonVar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Full_Recent.RData")
+  select(Epoch:fspe)
+save(FullRecent_TaxonVar, file = "~/Full_Recent.RData")
 
-# Melt data - remember to save as something before clearing console
+# Melt data
 FullRecent_long<- melt(FullRecent_TaxonVar, id.vars= "Epoch")
-save(FullRecent_long, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Full_Recent_long.RData")
-
-
-# Form dataframe of mean, median and standard deviation of all FD metrics
-## Spp_richness + Median and SD values produce Table 1
-Recent_var <- FullRecent_TaxonVar %>% 
-  group_by(Epoch) %>%
-  summarise(Sp_mean = mean(nb_sp),
-            Sp_med = median(nb_sp),
-            Sp_sd = sd(nb_sp),
-            FE_mean = mean(nb_fe),
-            FE_med = median(nb_fe),
-            FE_sd = sd(nb_fe),
-            Red_mean = mean(fred),
-            Red_med = median(fred),
-            Red_sd = sd(fred),
-            Ored_mean = mean(fored),
-            Ored_med = median(fored),
-            Ored_sd = sd(fored),
-            Vul_mean = mean(fvuln),
-            Vul_med = median(fvuln),
-            Vul_sd = sd(fvuln),
-            FRic_mean = mean(fric),
-            FRic_med = median(fric),
-            FRic_sd = sd(fric),
-            Fori_mean = mean(fori),
-            Fori_med = median(fori),
-            Fori_sd = sd(fori),
-            Fspe_mean = mean(fspe),
-            Fspe_med = median(fspe),
-            Fspe_sd = sd(fspe))
-
-Recent_var$Epoch <- ordered(Recent_var$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
-                                                     "Pliocene","Pleistocene","Recent"))
-
-# Plot
-epochs_custom <- data.frame(
-  name = c("Palaeocene","Eocene","Oligocene","Miocene","Pliocene","Pleistocene","Recent"), 
-  max_age = c(1.5,2.5,3.5,4.5,5.5,6.5,7.6),
-  min_age = c(0.4,1.5,2.5,3.5,4.5,5.5,6.5), 
-  color = c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0")
-)
-## Functional entities
-FullRecent_FE <- FullRecent_long %>% 
-  filter(variable == "nb_fe")
-FE_full_Recent <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene", "Recent"))+
-  geom_boxplot(data = FullRecent_FE, aes(x = Epoch, y = value),
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "# FEs")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional redundancy
-FullRecent_Fred <- FullRecent_long %>% 
-  filter(variable == "fred")
-FRed_full_Recent <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene","Pleistocene","Recent"))+
-  geom_boxplot(data = FullRecent_Fred, aes(x = Epoch, y = value), 
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FRed")+
-  #ylim(0,1) +
-  #scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, by = 0.2)) +
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional over-redundancy
-FullRecent_Fored <- FullRecent_long %>% 
-  filter(variable == "fored")
-FOred_full_Recent <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene","Recent"))+
-  geom_boxplot(data = FullRecent_Fored, aes(x = Epoch, y = value), 
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FOred")+
-  #ylim(0.3,0.6) +
-  #scale_y_continuous(limits = c(0.3, 0.6), breaks = seq(0.3, 0.6, by = 0.1)) +
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent"))+
-  theme(axis.text.x = element_blank())
-
-## Functional vulnerability
-FullRecent_Fvuln <- FullRecent_long %>% 
-  filter(variable == "fvuln")
-FVuln_full_Recent <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene","Recent"))+
-  geom_boxplot(data = FullRecent_Fvuln, aes(x = Epoch, y = value), 
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FVuln")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent"))+
-  theme(axis.text.x = element_blank())
-
-## Functional richness
-FullRecent_FRic <- FullRecent_long %>% 
-  filter(variable == "fric")
-FRic_full_Recent <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene","Recent"))+
-  geom_boxplot(data = FullRecent_FRic, aes(x = Epoch, y = value), 
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FRic")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional originality
-FullRecent_FOri <- FullRecent_long %>% 
-  filter(variable == "fori")
-FOri_full_Recent <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene","Recent"))+
-  geom_boxplot(data = FullRecent_FOri, aes(x = Epoch, y = value), 
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FOri")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-
-## Functional specialisation
-FullRecent_FSpe <- FullRecent_long %>% 
-  filter(variable == "fspe")
-FSpe_full_Recent <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene","Recent"))+
-  geom_boxplot(data = FullRecent_FSpe, aes(x = Epoch, y = value), 
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "Epoch", y = "FSpe")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(axis.ticks.x = element_blank()) +
-  theme(axis.text.x = element_blank())+
-  coord_geo(
-    dat = epochs_custom, pos = "bottom", expand = TRUE,
-    skip = NULL, abbrv = TRUE, dat_is_discrete = TRUE,
-    size = 3
-  )
-
-
-# Plot everything together
-Fig_X_full <- plot_grid(FE_full_Recent,
-                   FRed_full_Recent,FOred_full_Recent,
-                   FRic_full_Recent,
-                   FOri_full_Recent,FSpe_full_Recent,
-                   labels= c("(a)","(b)","(c)","(d)","(e)","(f)"), 
-                   label_size = 10,align = "hv", label_fontface = "bold",  nrow=6)
+save(FullRecent_long, file = "~/Full_Recent_long.RData")
 
 ## Now do loop analyses based on resampling Recent sample
 # Set up model to run on n iterations
@@ -1165,172 +976,8 @@ res_Taxonvar_resamp_df$sp_richn<-NULL
 # Format res for FD metrics
 Recent_resampled<- res_Taxonvar_resamp_df %>% 
   select(Epoch:fspe)
-save(Recent_resampled, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Recent_resampling.RData")
+save(Recent_resampled, file = "~/Recent_resampling.RData")
 
 # Melt data & save
 Recent_resampled_long<- melt(Recent_resampled, id.vars= "Epoch")
-save(Recent_resampled_long, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Recent_resampling_long.RData")
-
-Recent_resamp_var <-Recent_resampled %>% 
-  group_by(Epoch) %>%
-  summarise(FE_med = median(nb_fe),
-            FE_sd = sd(nb_fe),
-            Red_med = median(fred),
-            Red_sd = sd(fred),
-            Ored_med = median(fored),
-            Ored_sd = sd(fored),
-            FRic_med = median(fric),
-            FRic_sd = sd(fric),
-            Fori_med = median(fori),
-            Fori_sd = sd(fori),
-            Fspe_med = median(fspe),
-            Fspe_sd = sd(fspe))
-
-Recent_resamp_var$Epoch <- ordered(Recent_resamp_var$Epoch, levels=c("Palaeocene","Eocene","Oligocene","Miocene",
-                                                     "Pliocene","Pleistocene","Recent"))
-
-# Plot resampling in violin plots
-TR_Recent_Taxonvar <- Recent_resampled_long %>% 
-  filter(variable == "nb_sp")
-FEmetrics_Recent_Taxonvar <- Recent_resampled_long %>% 
-  filter(variable == "nb_fe")
-FRedmetrics_Recent_Taxonvar <- Recent_resampled_long %>% 
-  filter(variable == "fred")
-FOredmetrics_Recent_Taxonvar <- Recent_resampled_long %>% 
-  filter(variable == "fored")
-FVulnmetrics_Recent_Taxonvar <- Recent_resampled_long %>% 
-  filter(variable == "fvuln")
-FRicmetrics_Recent_Taxonvar <- Recent_resampled_long %>% 
-  filter(variable == "fric")
-FOrimetrics_Recent_Taxonvar <- Recent_resampled_long %>% 
-  filter(variable == "fori")
-FSpemetrics_Recent_Taxonvar <- Recent_resampled_long %>% 
-  filter(variable == "fspe")
-
-## Produce geological time scale (for FSpe plots)
-epochs_custom <- data.frame(
-  name = c("Palaeocene","Eocene","Oligocene","Miocene","Pliocene","Pleistocene","Recent"), 
-  max_age = c(1.5,2.5,3.5,4.5,5.5,6.5,7.6),
-  min_age = c(0.4,1.5,2.5,3.5,4.5,5.5,6.5), 
-  color = c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0")
-)
-
-## Functional entities
-FE_Recent_resamp <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene", "Recent"))+
-  geom_boxplot(data = FEmetrics_Recent_Taxonvar, aes(x = Epoch, y = value),
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "# FEs")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional redundancy
-FRed_Recent_resamp <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene", "Recent"))+
-  geom_boxplot(data = FRedmetrics_Recent_Taxonvar, aes(x = Epoch, y = value),
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FRed")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional over-redundancy
-FOred_Recent_resamp <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene", "Recent"))+
-  geom_boxplot(data = FOredmetrics_Recent_Taxonvar, aes(x = Epoch, y = value),
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FOred")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional vulnerability
-FVuln_Recent_resamp <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene", "Recent"))+
-  geom_boxplot(data = FVulnmetrics_Recent_Taxonvar, aes(x = Epoch, y = value),
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FVuln")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional richness
-FRic_Recent_resamp <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene", "Recent"))+
-  geom_boxplot(data = FRicmetrics_Recent_Taxonvar, aes(x = Epoch, y = value),
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FRic")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional originality
-FOri_Recent_resamp <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene", "Recent"))+
-  geom_boxplot(data = FOrimetrics_Recent_Taxonvar, aes(x = Epoch, y = value),
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FOri")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.text.x = element_blank())
-
-## Functional specialisation
-FSpe_Recent_resamp <- ggplot()+
-  scale_x_discrete(limits=c("Palaeocene","Eocene","Oligocene","Miocene", "Pliocene", "Pleistocene", "Recent"))+
-  geom_boxplot(data = FSpemetrics_Recent_Taxonvar, aes(x = Epoch, y = value),
-               fill=c("#FBA75F","#FDB46C","#FDC07A","#FFFF90","#FFFF99","#FFF2AE","#FEF2E0"))+
-  labs(x = "", y = "FSpe")+
-  theme_minimal() +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(axis.text = element_text(size= 6.5, color= "black"),
-        axis.title= element_text(size= 8), panel.background= element_rect(fill= "white"))+
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  theme(axis.ticks.x = element_blank())+
-  theme(axis.text.x = element_blank())+
-  coord_geo(
-    dat = epochs_custom, pos = "bottom", expand = TRUE,
-    skip = NULL, abbrv = TRUE, dat_is_discrete = TRUE,
-    size = 3
-  )
-
-
-# Plot everything together  - produces Figure 2
-Fig_X <- plot_grid(FE_Recent_resamp,
-                   FRed_Recent_resamp,FOred_Recent_resamp,
-                   FRic_Recent_resamp,
-                   FOri_Recent_resamp,FSpe_Recent_resamp,
-                   labels= c("(a)","(b)","(c)","(d)","(e)","(f)"), 
-                   label_size = 10,align = "hv", label_fontface = "bold",  nrow=6)
+save(Recent_resampled_long, file = "~/Recent_resampling_long.RData")
