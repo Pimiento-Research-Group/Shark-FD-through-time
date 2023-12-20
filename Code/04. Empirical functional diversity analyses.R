@@ -2,6 +2,7 @@
 # 04. Empirical functional diversity analyses
 ## This R code provides functional diversity analyses on our recorded data
 ## it produces the Rdata files needed to load empirical results for comparison to other models in Figure 2
+## The Median Rdata output and proportional changes in the xlsx output together produce Table 1
 #######################################################################################################################################
 
 ## Import packages
