@@ -1,7 +1,7 @@
 #########################################################################################################################
 # 10. Recent resampling results
 ## This R code plots the results of our Recent resampling analyses
-## it produces Figure S7
+## it produces Figure S7 as well as 2 Rdata files of the "Full_Recent" null model
 #########################################################################################################################
 
 # Import packages
@@ -22,16 +22,16 @@ library(xfun)
 library(deeptime)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Load original results
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_long_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Taxon_metrics.RData")
+load(file = "~/Taxon_variation_metrics.RData")
+load(file = "~/Taxon_variation_long_metrics.RData")
+load(file = "~/Median_Taxon_metrics.RData")
 
 # Load 'full Recent' data - called "FullRecent"
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Full_Recent.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Full_Recent_long.RData")
+load(file = "~/Full_Recent.RData")
+load(file = "~/Full_Recent_long.RData")
 
 FullRecent_var <- FullRecent_TaxonVar %>% 
   group_by(Epoch) %>%
@@ -61,8 +61,8 @@ FullRecent_var <- FullRecent_TaxonVar %>%
             Fspe_sd = sd(fspe))
 
 # Load 'Recent resampled' data - called "Recent_resampled"
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Recent_resampling.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Recent_resampling_long.RData")
+load(file = "~/Recent_resampling.RData")
+load(file = "~/Recent_resampling_long.RData")
 
 Resampled_var <- Recent_resampled %>% 
   group_by(Epoch) %>%
@@ -92,8 +92,8 @@ Resampled_var <- Recent_resampled %>%
             Fspe_sd = sd(fspe))
 
 # Load null model - for original & resampled data - called "Null_FDmetrics_taxonvar"
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_null.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_null_long.RData")
+load(file = "~/Taxon_variation_null.RData")
+load(file = "~/Taxon_variation_null_long.RData")
 
 
 # Null model for 'full Recent'
@@ -235,14 +235,6 @@ baskets.epoch <- baskets.range.taxon %>%
   mutate(Recent = replace(Recent,Recent=="1",Taxon_corrected))
 
 baskets.epoch[baskets.epoch == 0]<-NA
-
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
 
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU <- data %>% 
@@ -387,11 +379,11 @@ Recent_null_df$sp_richn<-NULL
 # Format dataframe to be loaded for comparison plots
 FullRecent_null<- Recent_null_df %>% 
   select(Epoch:fspe) # remember to save as something
-save(FullRecent_null, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Full_Recent_null.RData")
+save(FullRecent_null, file = "~/Full_Recent_null.RData")
 
 # Melt data - remember to save as something before clearing console
 FullRecentNull_long<- melt(FullRecent_null, id.vars= "Epoch")
-save(FullRecentNull_long, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Full_Recent_null_long.RData")
+save(FullRecentNull_long, file = "~/Full_Recent_null_long.RData")
 
 
 # Plot - FRic x 3
@@ -628,8 +620,7 @@ getmode <- function(v) {
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
 
-# Calculate average CH, CW & mode CE, LC, XO, LO per species & genus
-## Used to form functional space due to being most common tooth morphology per species; see Code S4 for iteration-based analyses
+# Species-trait
 Av_data <- data %>%
   group_by(Taxon_corrected) %>% 
   reframe(CH = mean(CH_mm),
@@ -924,8 +915,7 @@ getmode <- function(v) {
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
 
-# Calculate average CH, CW & mode CE, LC, XO, LO per species & genus
-## Used to form functional space due to being most common tooth morphology per species; see Code S4 for iteration-based analyses
+# Species-trait
 Av_data <- data %>%
   group_by(Taxon_corrected) %>% 
   reframe(CH = mean(CH_mm),
@@ -1219,14 +1209,6 @@ baskets.epoch <- baskets.range.taxon %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -1408,7 +1390,7 @@ for(e in 1:8) {
 }
 
 
-#write function to calculate slopes for null model values
+#write function to calculate differences
 slopes_fun<- function(data1, data2){
   output<- matrix(data= NA, nrow= dim(data1)[1], ncol= dim(data1)[2])
   for (k in 1:8) {
@@ -1510,7 +1492,7 @@ for(e in 1:8) {
 }
 
 
-#write function to calculate slopes for null model values
+#write function to calculate differences
 slopes_fun<- function(data1, data2){
   output<- matrix(data= NA, nrow= dim(data1)[1], ncol= dim(data1)[2])
   for (k in 1:8) {
@@ -1553,7 +1535,7 @@ for (i in 1:8){
 emp.resamp 
 ## FRic does not significantly deviate from expectations in Recent (Z = -1.69)
 
-# Plot spaces & box/violin plots together
+# Plot spaces & box/violin plots together - produces Figure S7
 plot_grid(Rec_contributors12, Rec, Rec_resamp,
           FRic_null_variation,
           FRic_Recent_full, FRic_Recent_resampled,
