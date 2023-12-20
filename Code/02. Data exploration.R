@@ -14,20 +14,20 @@ library(corrr)
 library(ggsci)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Number of genera
 Gen_data <- data %>% 
   count(Genus)      # 163 genera
-# Number of species (total)
+# Number of taxa (total)
 Taxa_data <- data %>% 
   count(Taxon_corrected)    # 590 total taxa (species & genus-level)
 
 Sp_data <- data %>% 
   filter(Species!="sp.") %>% 
-  count(Taxon_corrected)    # 507 species
+  count(Taxon_corrected)    # 507 species-level taxa
 
-# Number of species (fossil - for comparison with FINS)
+# Number of species (fossil)
 Fossil_data <- data %>% 
   filter(Epoch!="Recent") %>% 
   filter(Species!="sp.") %>% 
@@ -82,7 +82,7 @@ data %>%
 CorPolychor(data$CH,data$CW)
 CorPolychor(data$XO,data$LO)
 
-# Tooth-position-dental character correlations; produces Table S2
+# Tooth-position-dental character correlations - produces Table S2
 CorPolychor(data$Tooth_position,data$CH)
 CorPolychor(data$Tooth_position,data$CW)
 CorPolychor(data$Tooth_position,data$CE)
