@@ -61,7 +61,7 @@ A total of 13 R scripts were produced containing all analyses. The scripts are a
 - It produces Figure S5 and S6
 - It further produces 4 Rdata files: the results of the resampling procedure in wide and long format - Taxon_variation_resampling_metrics.RData, Taxon_variation_resampling_long.RData - and the taxonomic loss sequence - Species richness sequence.RData - as well as a plot of taxonomic richness under resampling used in Figure 2 - Taxon richness_resampling.RData
 08. **Functional diversity results**: This code plots shark functional diversity through time, assesses if this deviates from null expectations via Z-scores, and examines if empirical changes in taxonomic richness are significantly different from when this data are resampled
-- It produces Figure 2, Table 2, S4 and S5 
+- It produces Figure 2 and Table 2, S4 and S5 
 - It further produces an Rdata and xlsx file used to produce Table 2 - Empirical_null_FD_metrics.Rdata and Empirical_null_FD differences.xlsx
 09. **Recent resampling analyses**: This code assesses if our Recent results are reliable by re-analysing Recent functional diversity with all Recent teeth and random resampling
 - It produces 4 Rdata files - 2 providing the results of the "Recent-plus" sampling in wide and long format - Full_Recent.Rdata, Full_Recent_long.Rdata - and 2 providing the results of the "Recent-plus resampled" sampling in wide and long format - Recent_resampling.Rdata, Recent_resampling_long.Rdata
