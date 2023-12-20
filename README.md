@@ -50,7 +50,9 @@ A total of 13 R scripts were produced containing all analyses. The scripts are a
 - It produces Figure 1, Figure S2-S4 and Table S3
 - It further produces 2 Rdata files: one for excluding Recent sharks without a fossil record - Filtered taxa.Rdata, and one of the functional space's species-trait matrix - Species-trait matrix.Rdata
 04. **Empirical functional diversity analyses**: This code produces functional diversity analyses based on our recorded tooth data
-- It produces 3 Rdata files - the functional diversity metric results in wide and long form: Taxon_variation_metrics.RData, Taxon_variation_long_metrics.RData; as well as the median and standard deviation results: Mean_Taxon_metrics.RData
+- It produces 3 Rdata files - the functional diversity metric results in wide and long form: Taxon_variation_metrics.RData, Taxon_variation_long_metrics.RData; as well as the median and standard deviation results: Median_Taxon_metrics.RData
+- It further produces an xlsx file of all proportional changes in each metric across successive epochs - Proportional_changes.xlsx
+- Median_Taxon_metrics.Rdata and Proportional_changes.xlsx together produce Table 1
 05. **Null model**: This code produces the null model used to assess expected functional diversity metrics based on taxonomic richness
 - It produces 2 Rdata files - the null model results in wide and long form: Taxon_variation_null.RData, Taxon_variation_null_long.RData
 06. **Extant shark functional space**: This code produces the functional space and functional richness/specialisation results of the total diversity of Recent shark species recorded in Data S2
