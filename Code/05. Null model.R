@@ -21,7 +21,7 @@ library(doParallel)
 library(xfun)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Occurrence matrix
 # Form FTU unique combinations, with epoch included
@@ -173,14 +173,6 @@ baskets.epoch <- filtered_baskets.range %>%
 
 baskets.epoch[baskets.epoch == 0]<-NA
 
-Spp_richness <- c(length(unique(baskets.epoch$Palaeocene)),
-                  length(unique(baskets.epoch$Eocene)),
-                  length(unique(baskets.epoch$Oligocene)),
-                  length(unique(baskets.epoch$Miocene)),
-                  length(unique(baskets.epoch$Pliocene)),
-                  length(unique(baskets.epoch$Pleistocene)),
-                  length(unique(baskets.epoch$Recent)))
-
 # Form functional taxonomic units (FTUs), grouping by species to account for intraspecific variability
 FTU <- data %>% 
   group_by(Taxon_corrected) %>% 
@@ -328,11 +320,11 @@ res_Taxonvar_null_df$sp_richn<-NULL
 # Format res for FD metrics
 Null_FDmetrics_taxonvar<- res_Taxonvar_null_df %>% 
   select(Epoch:fspe)
-save(Null_FDmetrics_taxonvar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_null.RData")
+save(Null_FDmetrics_taxonvar, file = "~/Taxon_variation_null.RData")
 
 # Melt data & save
 FDmetrics_null_long_taxonvar<- melt(Null_FDmetrics_taxonvar, id.vars= "Epoch")
-save(FDmetrics_null_long_taxonvar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_null_long.RData")
+save(FDmetrics_null_long_taxonvar, file = "~/Taxon_variation_null_long.RData")
 
 # Isolate individual functional diversity metrics
 FEmetrics_null_Taxonvar <- FDmetrics_null_long_taxonvar %>% 
