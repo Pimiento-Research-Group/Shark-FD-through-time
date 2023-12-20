@@ -9,7 +9,7 @@ library(readxl)
 library(tidyverse)
 
 # Import data
-data <- read_xlsx("C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Paper/Supplementary data/Data S1.xlsx")
+data <- read_xlsx("~/Data S1.xlsx")
 attach(data)
 
 # Prepare epoch non-matches and filter
@@ -18,7 +18,7 @@ data <- data %>%
   rowwise() %>%
   mutate(Epoch = replace(Epoch, !Epoch_earliest %in% Epoch_latest, "nonmatch"))
 
-# Filter epochs for seven consistent time bins (only 2 teeth dated to "Holocene" and both taxa included in Recent)
+# Filter epochs for seven consistent time bins (only 2 teeth dated to "Holocene" and both taxa included in rest of data)
 data <- data %>% 
   filter(Epoch!="Holocene")
 
@@ -33,4 +33,4 @@ data$XO <- as.factor(data$XO)
 data$LO <- as.factor(data$LO)
 
 # Save data to load into other codes
-save(data,file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+save(data,file="~/Cleaned data.RData")
