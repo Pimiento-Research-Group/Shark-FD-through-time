@@ -44,7 +44,7 @@ A total of 13 R scripts were produced containing all analyses. The scripts are a
 
 01. **Data treatment**: This code prepares the shark tooth data (Data S1) for analyses in all other codes
 - It produces 1 Rdata file: Cleaned data.RData 
-02. **Data exploration**: This code explores taxonomic data and geographic distribution of the data; as well as testing correlations between dental characters and tooth position
+02. **Data exploration**: This code explores taxonomic data and geographic distribution of the data; and tests correlations between dental characters and tooth position
 - It produces Figure S1 and Table S2
 03. **Functional space**: This code produces the functional space of Cenozoic sharks based on their dental characters
 - It produces Figure 1, Figure S2-S4 and Table S3
