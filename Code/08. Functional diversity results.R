@@ -25,8 +25,6 @@ load(file = "~/Median_Taxon_metrics.RData")
 ## Null model
 load(file = "~/Taxon_variation_null.RData")
 load(file = "~/Taxon_variation_null_long.RData")
-## Resampled taxonomic richness plot
-load(file = "~/Taxon richness_resampling.RData")
 
 ## Null model set up for violin plots
 FEmetrics_null_Taxonvar <- FDmetrics_null_long_taxonvar %>% 
@@ -195,12 +193,11 @@ FSpe_null_variation <- ggplot(data=FSpemetrics_null_Taxonvar, aes(x= Epoch, y= v
 
 
 # Plot everything together  - produces Figure 2
-Fig_2 <- plot_grid(TR_resampling_variation,
-                   FE_null_variation,
+Fig_2 <- plot_grid(FE_null_variation,
           FRed_null_variation,FOred_null_variation,
           FRic_null_variation,
           FOri_null_variation,FSpe_null_variation,
-          labels= c("(a)","(b)","(c)","(d)","(e)","(f)","(g)"), 
+          labels= c("(a)","(b)","(c)","(d)","(e)","(f)"), 
           label_size = 10,align = "hv", label_fontface = "bold",  nrow=7)
 
 
