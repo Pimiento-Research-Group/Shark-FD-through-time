@@ -198,7 +198,7 @@ Fig_2 <- plot_grid(FE_null_variation,
           FRic_null_variation,
           FOri_null_variation,FSpe_null_variation,
           labels= c("(a)","(b)","(c)","(d)","(e)","(f)"), 
-          label_size = 10,align = "hv", label_fontface = "bold",  nrow=7)
+          label_size = 10,align = "hv", label_fontface = "bold",  nrow=6)
 
 
 # Calculate Z scores between empirical analyses and null model per epoch
