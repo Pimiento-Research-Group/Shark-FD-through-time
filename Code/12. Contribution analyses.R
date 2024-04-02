@@ -499,3 +499,36 @@ plot_grid(
   labels = c("(a)","(b)","(c)","(d)"), 
   label_size = 12, align = "hv", label_fontface = "bold", nrow = 2
 )
+
+## Test that extinct FSpe outliers significantly differ from same distribution of extant sharks
+# Extract FSpe values for extinct and extant species
+fspe_extinct <- FUSE_fspe_rank$Fspe[FUSE_fspe_rank$Status == "Extinct"]
+fspe_extant <- FUSE_fspe_rank$Fspe[FUSE_fspe_rank$Status == "Extant"]
+
+# Compute 90th quantiles for each group
+quantile_extinct <- quantile(fspe_extinct, probs = 0.9)
+quantile_extant <- quantile(fspe_extant, probs = 0.9)
+
+# Define a function to compute the difference in 90th quantiles
+compute_diff <- function(x, y) {
+  quantile(x, probs = 0.9) - quantile(y, probs = 0.9)
+}
+
+# Compute observed difference
+observed_diff <- compute_diff(fspe_extinct, fspe_extant)
+
+# Generate permutations of Status variable
+n_permutations <- 5000
+permuted_diffs <- replicate(n_permutations, {
+  status_permuted <- sample(FUSE_fspe_rank$Status)
+  fspe_extinct_permuted <- FUSE_fspe_rank$Fspe[status_permuted == "Extinct"]
+  fspe_extant_permuted <- FUSE_fspe_rank$Fspe[status_permuted == "Extant"]
+  compute_diff(fspe_extinct_permuted, fspe_extant_permuted)
+})
+
+# Compute p-value
+p_value <- mean(abs(permuted_diffs) >= abs(observed_diff))
+
+# Output results
+cat("Observed Difference:", observed_diff, "\n")
+cat("P-value:", p_value, "\n")
