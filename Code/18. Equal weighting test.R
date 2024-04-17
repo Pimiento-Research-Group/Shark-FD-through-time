@@ -2,7 +2,7 @@
 # 18. Equal weighting test
 ## This R code reforms the functional space and tests axes correlations when
 ## dental characters have equal weighting (i.e., 1)
-## it produces Table S4
+## it produces the rest of Table S3
 #########################################################################################################################
 
 ## Import packages
@@ -237,7 +237,7 @@ sharks_tr_faxes <- mFD::traits.faxes.cor(
   sp_faxes_coord = sp_faxes_coord_sharks[ , c("PC1", "PC2", "PC3")], 
   plot           = TRUE)
 
-# Print traits with significant effect - produces Table S4
+# Print traits with significant effect - produces Table S3 (2nd half)
 sharks_tr_faxes$"tr_faxes_stat"[which(sharks_tr_faxes$"tr_faxes_stat"$"p.value" < 0.05), ]
 
 # Return plots - plots in blue indicate which traits drive each axis
