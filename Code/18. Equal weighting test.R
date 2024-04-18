@@ -16,7 +16,7 @@ library(mFD)
 library(data.table)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Functional spaces per epoch
 ## Occurrence matrix - need to group by Taxa by epoch so we can mark their occurrences through time 
