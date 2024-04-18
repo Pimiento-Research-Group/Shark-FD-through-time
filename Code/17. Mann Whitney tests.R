@@ -8,8 +8,8 @@
 library(tidyverse)
 
 # Load empirical data
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Taxon_variation_long_metrics.RData")
+load(file = "~/Taxon_variation_metrics.RData")
+load(file = "~/Taxon_variation_long_metrics.RData")
 
 # Filter by FD metric
 FDmetrics_FE <- FDmetrics_long_TaxonVar %>% 
