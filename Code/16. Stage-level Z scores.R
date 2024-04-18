@@ -9,12 +9,12 @@ library(tidyverse)
 library(writexl)
 
 # Load empirical and null results
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_variation_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_variation_long_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Stage_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_null_variation_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_null_variation_long_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Stage_Null_metrics.RData")
+load(file = "~/Stage_variation_metrics.RData")
+load(file = "~/Stage_variation_long_metrics.RData")
+load(file = "~/Mean_Stage_metrics.RData")
+load(file = "~/Stage_null_variation_metrics.RData")
+load(file = "~/Stage_null_variation_long_metrics.RData")
+load(file = "~/Mean_Stage_Null_metrics.RData")
 
 # Calculate Z scores between empirical analyses and null model per Stage
 # Form empty dataframe
@@ -212,5 +212,5 @@ for (i in 1:8){
 stage.emp.null
 
 # Extract results as excel worksheet - produces Tables 2 and S4
-save(stage.emp.null, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_FD Z scores.Rdata")
-write_xlsx(stage.emp.null, "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_FD Z scores.xlsx")
+save(stage.emp.null, file = "~/Stage_FD Z scores.Rdata")
+write_xlsx(stage.emp.null, "~/Stage_FD Z scores.xlsx")
