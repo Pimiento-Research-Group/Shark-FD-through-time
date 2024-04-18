@@ -22,7 +22,7 @@ library(deeptime)
 library(xfun)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Form stage column with non-matches
 data <- data %>% 
@@ -474,11 +474,11 @@ res_df_StageNull$sp_richn<-NULL
 # Format dataframe to be loaded for comparison plots
 Res_FDmetrics_StageNull<- res_df_StageNull %>% 
   select(Stage:fspe)
-save(Res_FDmetrics_StageNull, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_null_variation_metrics.RData")
+save(Res_FDmetrics_StageNull, file = "~/Stage_null_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_StageNull<- melt(Res_FDmetrics_StageNull, id.vars= "Stage")
-save(FDmetrics_long_StageNull, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_null_variation_long_metrics.RData")
+save(FDmetrics_long_StageNull, file = "~/Stage_null_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
 Stage_null <- Res_FDmetrics_StageNull %>% 
@@ -516,4 +516,4 @@ Stage_null$Stage <- ordered(Stage_null$Stage, levels=c("Danian","Selandian","Tha
                                                      "Chibanian","Late/Upper","Recent"))
 
 # Save iteration data
-save(Stage_null, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Stage_Null_metrics.RData")
+save(Stage_null, file = "~/Mean_Stage_Null_metrics.RData")
