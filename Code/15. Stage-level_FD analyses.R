@@ -21,7 +21,7 @@ library(doParallel)
 library(deeptime)
 
 # Load data
-load(file="C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Cleaned data.RData")
+load(file="~/Cleaned data.RData")
 
 # Form stage column with non-matches
 data <- data %>% 
@@ -450,11 +450,11 @@ res_df_StageVar$sp_richn<-NULL
 # Format dataframe to be loaded for comparison plots
 Res_FDmetrics_StageVar<- res_df_StageVar %>% 
   select(Stage:fspe)
-save(Res_FDmetrics_StageVar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_variation_metrics.RData")
+save(Res_FDmetrics_StageVar, file = "~/Stage_variation_metrics.RData")
 
 # Melt data
 FDmetrics_long_StageVar<- melt(Res_FDmetrics_StageVar, id.vars= "Stage")
-save(FDmetrics_long_StageVar, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_variation_long_metrics.RData")
+save(FDmetrics_long_StageVar, file = "~/Stage_variation_long_metrics.RData")
 
 # Form dataframe of mean, median and standard deviation of all FD metrics
 Stage_var <- Res_FDmetrics_StageVar %>% 
@@ -492,7 +492,7 @@ Stage_var$Stage <- ordered(Stage_var$Stage, levels=c("Danian","Selandian","Thane
                                                      "Chibanian","Late/Upper","Recent"))
 
 # Save iteration data
-save(Stage_var, file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Stage_metrics.RData")
+save(Stage_var, file = "~/Mean_Stage_metrics.RData")
 
 # Plot boxplots through time
 ## Produce geological time scale (for FSpe plots)
@@ -504,9 +504,9 @@ epochs_custom <- data.frame(
 )
 
 ## Load null model results
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_null_variation_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Stage_null_variation_long_metrics.RData")
-load(file = "C:/Users/2022207/Dropbox/Jack's PhD/Chapter 2. FD changes over time/Analyses/Current Analyses/R codes/Taxon code/Data/Mean_Stage_Null_metrics.RData")
+load(file = "~/Stage_null_variation_metrics.RData")
+load(file = "~/Stage_null_variation_long_metrics.RData")
+load(file = "~/Mean_Stage_Null_metrics.RData")
 
 ## Functional entities
 FDmetrics_FE <- FDmetrics_long_StageVar %>% 
