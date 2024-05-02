@@ -2,7 +2,7 @@
 # 07. Randomisation results 
 ## This R code provides the random simulations on shark function diversity through time
 ## randomisation tests are on resampling and the relationship between taxon richness and FRic
-## it produces Figure S5 and S6
+## it produces Figure S5 and S7
 ###################################################################################################################
 
 ## Import packages
@@ -893,14 +893,14 @@ resamp_means <- resampled_cor %>%
 
 cor.test(resamp_means$nb_sp,resamp_means$mean_fric) # Strong positive association (rho = 0.88; P < 0.0001)
 
-# Plot results - produces Figure S6
+# Plot results - produces Figure S7
 annotations <- data.frame(
   nb_sp = c(104, 265, 115, 234, 143, 133, 114),
   fric = c(0.66, 0.86, 0.78, 0.87, 0.69, 0.60, 0.43),
   label = c("Pal", "Eo", "Oli", "Mio", "Plio", "Ple", "Rec")
 )
 
-Fig_S6 <- ggplot(data = resampled_cor, aes(x = nb_sp, y = fric)) +
+Fig_S7 <- ggplot(data = resampled_cor, aes(x = nb_sp, y = fric)) +
   geom_point(color = "grey80", pch = 1, size = 3.5) +
   geom_ribbon(data = resamp_means,
               aes(x = nb_sp, ymin = pi_fric_lower, ymax = pi_fric_upper),
