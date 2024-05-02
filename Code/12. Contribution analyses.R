@@ -109,6 +109,22 @@ baskets.range <- baskets.range %>%
   mutate(Recent = case_when(Recent == "1" && Taxon_corrected == "Nebrius sp."~"0", TRUE ~ Recent)) %>% 
   mutate(Recent = case_when(Recent == "1" && Taxon_corrected == "Notorynchus sp."~"0", TRUE ~ Recent))
 
+baskets.range <- baskets.range %>% 
+  rowwise() %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Alopias sp."~"Extinct", TRUE ~ Current_status)) %>%
+  mutate(Current_status = case_when(Taxon_corrected == "Carcharias sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Carcharodon sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Dalatias sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Galeocerdo sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Galeorhinus sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Galeus sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Hemipristis sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Heptranchias sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Isurus sp."~"Extinct", TRUE ~ Current_status)) %>%
+  mutate(Current_status = case_when(Taxon_corrected == "Megachasma sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Nebrius sp."~"Extinct", TRUE ~ Current_status)) %>% 
+  mutate(Current_status = case_when(Taxon_corrected == "Notorynchus sp."~"Extinct", TRUE ~ Current_status))
+
 # Make 0 NAs, merge duplicates, reform NAs as 0
 baskets.range[baskets.range == 0] <- NA
 coalesce_all_columns <- function(df) {
