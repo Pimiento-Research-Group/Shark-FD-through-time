@@ -211,6 +211,6 @@ for (i in 1:8){
 
 stage.emp.null
 
-# Extract results as excel worksheet - produces Tables 2 and S4
+# Extract results as excel worksheet - produces Table S9
 save(stage.emp.null, file = "~/Stage_FD Z scores.Rdata")
 write_xlsx(stage.emp.null, "~/Stage_FD Z scores.xlsx")
