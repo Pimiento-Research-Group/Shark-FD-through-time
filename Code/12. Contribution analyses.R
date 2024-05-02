@@ -1,7 +1,7 @@
 ###################################################################################################################
 # 12. Contribution analyses 
 ## This R code provides analyses on species contribution to functional diversity
-## it produces Figures 3 and S10
+## it produces Figures 3 and S12
 ###################################################################################################################
 
 ## Import packages
@@ -403,7 +403,7 @@ plot_FSpe_order <- ggplot(FUSE_fspe, aes(x = Order, y = Fspe)) +
   theme(panel.grid = element_blank(), 
         panel.border = element_rect(fill= "transparent"))
 
-# Plot both panels - produces Figure S10
+# Plot both panels - produces Figure S12
 library(patchwork)
 combined_plot_order <- plot_FOri_order + plot_FSpe_order +
   plot_layout(widths = c(1, 1))
