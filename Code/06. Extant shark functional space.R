@@ -257,7 +257,7 @@ plot_FSpe_rank_lollipop <- ggplot(FUSE_fspe_rank, aes(x = Species, y = FSp_std, 
         axis.title = element_text(size = 12), panel.background = element_rect(fill = "white")) +
   theme(panel.grid = element_blank())
 
-# Plot everything - Produces Figure S8
+# Plot everything - Produces Figure S9
 plot_grid(
   data_space,
   plot_FSpe_rank_lollipop,
