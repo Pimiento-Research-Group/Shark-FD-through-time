@@ -1,7 +1,7 @@
 ########################################################################################################################################
 # 17. Mann-Whitney tests
 ## This R code calculates pairwise Mann-Whitney u-tests between epochs
-## it produces supplementary table S8
+## it produces Table S10
 #######################################################################################################################################
 
 ## Import packages
@@ -119,7 +119,7 @@ FOri_Taxonvar_rec <- FDmetrics_Fori %>%
 FSpe_Taxonvar_rec <- FDmetrics_Fspe %>% 
   filter(Epoch == "Recent")
 
-## Mann-Whitney tests
+## Mann-Whitney tests - produces Table S10
 # FE
 wilcox.test(FE_Taxonvar_pal$value,FE_Taxonvar_eo$value)
 wilcox.test(FE_Taxonvar_eo$value,FE_Taxonvar_oli$value)
