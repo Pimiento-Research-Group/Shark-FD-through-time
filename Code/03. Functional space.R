@@ -321,7 +321,7 @@ sharks_tr_faxes <- mFD::traits.faxes.cor(
   sp_faxes_coord = sp_faxes_coord_sharks[ , c("PC1", "PC2", "PC3")], 
   plot           = TRUE)
 
-# Print traits with significant effect - produces Table S3
+# Print traits with significant effect - produces Table S4
 sharks_tr_faxes$"tr_faxes_stat"[which(sharks_tr_faxes$"tr_faxes_stat"$"p.value" < 0.05), ]
 
 # Return plots - plots in blue indicate which traits drive each axis - produces Figure S3
