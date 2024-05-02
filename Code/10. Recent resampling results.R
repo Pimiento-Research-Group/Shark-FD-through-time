@@ -1,7 +1,7 @@
 #########################################################################################################################
 # 10. Recent resampling results
 ## This R code plots the results of our Recent resampling analyses
-## it produces Figure S7 as well as 2 Rdata files of the "Full_Recent" null model
+## it produces Figure S8 as well as 2 Rdata files of the "Full_Recent" null model
 #########################################################################################################################
 
 # Import packages
@@ -1535,7 +1535,7 @@ for (i in 1:8){
 emp.resamp 
 ## FRic does not significantly deviate from expectations in Recent (Z = -1.69)
 
-# Plot spaces & box/violin plots together - produces Figure S7
+# Plot spaces & box/violin plots together - produces Figure S8
 plot_grid(Rec_contributors12, Rec, Rec_resamp,
           FRic_null_variation,
           FRic_Recent_full, FRic_Recent_resampled,
