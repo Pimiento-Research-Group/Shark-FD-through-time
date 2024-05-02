@@ -1,7 +1,7 @@
 #########################################################################################################################
 # 03. Functional space
 ## This R code provides how functional space is formed
-## it produces Figure 1, S2-S4; and Table S3
+## it produces Figure 1, S2-S4; and Table S4
 #########################################################################################################################
 
 ## Import packages
