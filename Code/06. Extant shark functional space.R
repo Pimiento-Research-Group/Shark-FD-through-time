@@ -1,7 +1,7 @@
 #########################################################################################################################
 # 06. Extant shark functional space
 ## This R code provides how functional space is formed for all living sharks to test range of extant shark data
-## it produces Figure S8
+## it produces Figure S9
 #########################################################################################################################
 
 ## Import packages
