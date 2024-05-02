@@ -1,7 +1,7 @@
 ###################################################################################################################
 # 11. Sensitivity tests 
 ## This R code provides the sensitivity tests of number of traits for the shark functional diversity analyses
-## it produces Figure S9
+## it produces Figure S11
 ###################################################################################################################
 
 ## Import packages
@@ -2069,7 +2069,7 @@ FSpe_sens<-ggplot()+
     size = 5
   )
 
-# Plot all metrics - produces Figure S9
+# Plot all metrics - produces Figure S11
 plot_grid(FE_sens,FRed_sens,FOred_sens,FRic_sens,FOri_sens,FSpe_sens,
           labels= c("(a)","(b)","(c)","(d)","(e)","(f)"), 
           label_size = 12,align = "hv", label_fontface = "bold",  nrow=6)
