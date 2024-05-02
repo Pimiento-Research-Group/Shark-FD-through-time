@@ -703,7 +703,7 @@ FSpe_null_variation <- ggplot(data=FSpemetrics_null_Stagevar, aes(x= Stage, y= v
     size = 3
   )
 
-# Plot everything together  - produces Figure SX
+# Plot everything together  - produces Figure S6
 Fig <- plot_grid(FE_null_variation,
                    FRed_null_variation,FOred_null_variation,
                    FRic_null_variation,
