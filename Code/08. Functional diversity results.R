@@ -2,7 +2,7 @@
 # 08. Functional diversity results 
 ## This R code provides the plots and results comparing the empirical analyses and the null model
 ## It further compares net changes in taxonomic richness between successive epochs in the empirical and resampled samples
-## it produces Figure 2, Table 2, S4 and S5
+## it produces Figure 2, Table 2, S5 and S6
 ###################################################################################################################
 
 ## Import packages
@@ -302,12 +302,12 @@ for (i in 1:8){
 
 emp.null
 
-# Extract results as excel worksheet - produces Tables 2 and S4
+# Extract results as excel worksheet - produces Tables 2 and S6
 save(emp.null, file = "~/Empirical_null_FD metrics.Rdata")
 write_xlsx(emp.null, "~/Empirical_null_FD differences.xlsx")
 
 ##################################################################################
-## Calculate CI and significance of empirical taxonomic richness vs resampled taxonomic richness
+## Calculate CI and significance of empirical taxonomic richness vs resampled taxonomic richness - produces Table S5
 # Load long empirical data
 load(file = "~/Taxon_variation_long_metrics.RData")
 
