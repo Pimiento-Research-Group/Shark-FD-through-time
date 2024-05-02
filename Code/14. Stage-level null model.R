@@ -1,7 +1,7 @@
 ########################################################################################################################################
 # 14. Stage-based FD null model
 ## This R code provides the null mode for functional diversity analyses on stage-level analyses
-## it produces data necessary to produce supplementary figure S6
+## it produces data necessary to produce Figure S6
 #######################################################################################################################################
 
 ## Import packages
