@@ -1,7 +1,7 @@
 ###############################################################################################################
 # 02. Data exploration
 ## This R code provides exploration of the shark trait data, including taxonomic comparisons to FINS
-## it produces Figure S1 and Table S2
+## it produces Figure S1 and Table S3
 ###############################################################################################################
 
 ## Import packages
