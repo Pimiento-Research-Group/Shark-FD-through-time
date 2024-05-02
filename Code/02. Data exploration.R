@@ -82,7 +82,7 @@ data %>%
 CorPolychor(data$CH,data$CW)
 CorPolychor(data$XO,data$LO)
 
-# Tooth-position-dental character correlations - produces Table S2
+# Tooth-position-dental character correlations - produces Table S3
 CorPolychor(data$Tooth_position,data$CH)
 CorPolychor(data$Tooth_position,data$CW)
 CorPolychor(data$Tooth_position,data$CE)
