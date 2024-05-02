@@ -1,7 +1,7 @@
 ########################################################################################################################################
 # 15. Stage-based FD
 ## This R code provides functional diversity analyses on stage-level analyses
-## it produces supplementary figure S6 and table S6
+## it produces Figure S6 and Table S7 and S8
 #######################################################################################################################################
 
 ## Import packages
