@@ -45,9 +45,9 @@ A total of 18 R scripts were produced containing all analyses. The scripts are a
 01. **Data treatment**: This code prepares the shark tooth data (Data S1) for analyses in all other codes
 - It produces 1 Rdata file: Cleaned data.RData 
 02. **Data exploration**: This code explores taxonomic data and geographic distribution of the data; and tests correlations between dental characters and tooth position
-- It produces Figure S1 and Table S2
+- It produces Figure S1 and Table S3
 03. **Functional space**: This code produces the functional space of Cenozoic sharks based on their dental characters
-- It produces Figure 1, Figure S2-S4 and Table S3
+- It produces Figure 1, Figure S2-S4 and Table S4
 - It further produces 2 Rdata files: one for excluding Recent sharks without a fossil record - Filtered taxa.Rdata, and one of the functional space's species-trait matrix - Species-trait matrix.Rdata
 04. **Empirical functional diversity analyses**: This code produces functional diversity analyses based on our recorded tooth data
 - It produces 3 Rdata files - the functional diversity metric results in wide and long form: Taxon_variation_metrics.RData, Taxon_variation_long_metrics.RData; as well as the median and standard deviation results: Median_Taxon_metrics.RData
@@ -61,7 +61,7 @@ A total of 18 R scripts were produced containing all analyses. The scripts are a
 - It produces Figure S5 and S7
 - It further produces 4 Rdata files: the results of the resampling procedure in wide and long format - Taxon_variation_resampling_metrics.RData, Taxon_variation_resampling_long.RData - and the taxonomic loss sequence - Species richness sequence.RData - as well as a plot of taxonomic richness under resampling used in Figure 2 - Taxon richness_resampling.RData
 08. **Functional diversity results**: This code plots shark functional diversity through time, assesses if this deviates from null expectations via Z-scores, and examines if empirical changes in taxonomic richness are significantly different from when this data are resampled
-- It produces Figure 2 and Table 2, S4 and S5 
+- It produces Figure 2 and Table 2, S5 and S6 
 - It further produces an Rdata and xlsx file used to produce Table 2 - Empirical_null_FD_metrics.Rdata and Empirical_null_FD differences.xlsx
 09. **Recent resampling analyses**: This code assesses if our Recent results are reliable by re-analysing Recent functional diversity with all Recent teeth and random resampling
 - It produces 4 Rdata files - 2 providing the results of the "Recent-plus" sampling in wide and long format - Full_Recent.Rdata, Full_Recent_long.Rdata - and 2 providing the results of the "Recent-plus resampled" sampling in wide and long format - Recent_resampling.Rdata, Recent_resampling_long.Rdata
@@ -69,25 +69,25 @@ A total of 18 R scripts were produced containing all analyses. The scripts are a
 - It produces Figure S8
 - It further produces 2 Rdata files of a null model of the "Recent-plus" sample in wide and long format - Full_Recent_null.Rdata, Full_Recent_null_long.Rdata
 11. **Sensitivity tests**: This code produces sensitivity tests in which all functional diversity analyses are re-done with individual traits removed.
-- It produces Figure S10
+- It produces Figure S11
 - It further produces 18 Rdata files - the functional diversity results in wide, long and median/standard deviation format for each of the six dental characters examined
 12. **Contribution analyses**: This code analyses whether extinct or extant sharks contribute more to functional diversity, and assesses the most functionally original and specialised sharks of the Cenozoic
-- It produces Figure 3 and S11
+- It produces Figure 3 and S12
 - It further produces 1 Rdata file: FUn_Fsp metrics.RData
 13. **FD contributors through time**: This code assesses functional diversity contributions of sharks through time
 - It reveals which sharks were the most functionally original and specialised for each time bin
 14. **Stage-level null model**: This code produces the null model for functional diversity analyses conducted at the geological stage level
 - It produces 3 Rdata files - the null model in wide and long form; and median values: Stage_null_variation_metrics.Rdata, Stage_null_variation_long_metrics, and Mean_Stage_Null_metrics.Rdata
 15. **Stage-level_FD analyses**: This code produces empirical functional diversity analyses conducted at the geological stage level
-- It produces Figure S6 and Table S6
+- It produces Figure S6 and Table S7 and S8
 - It further produces 3 Rdata files - the results in wide, long and median format:Stage_variation_metrics.Rdata, Stage_variation_long_metrics.Rdata, and Mean_Stage_metrics.Rdata
 16. **Stage-level Z scores**: This code produces Z-score calculations for all functional diversity metrics at the geological stage level.
-- It produces Table S7
+- It produces Table S9
 - It further produces 1 Rdata file and 1 xlsx file containing these results: Stage_FD Z scores.Rdata and Stage_FD Z scores.xlsx
 17. **Mann Whitney tests**: This code produces the results of pairwise Mann-Whitney u-tests between epochs
-- It produces Table S8
+- It produces Table S10
 18. **Equal weighting test**: This code reassesses the relationship between functional space axes and dental characters when dental characters are all weighted equally.
-- It produces the second half of Table S3
+- It produces the second half of Table S4
 
 All code and data are placed in the following folders:
 
